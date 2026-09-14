@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import StepOne from '../components/StepOne';
 
 function RegisterForm() {
-  const [currentStep, setCurrentStep] = useState(3);
+  const [currentStep, setCurrentStep] = useState(1);
 
   const {
     register,
