@@ -1,79 +1,72 @@
-function StepOne({ register, errors }) {
+function StepTwo({ register, errors }) {
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       <div>
         <label className="mb-2 block font-medium">
-          Nama Lengkap
+          Pilih Paket Belajar
         </label>
 
-        <input
-          type="text"
-          placeholder="Masukkan nama lengkap"
-          className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-black"
-          {...register("fullName", {
-            required: "Nama lengkap wajib diisi.",
-            minLength: {
-              value: 3,
-              message: "Nama lengkap minimal 3 karakter.",
-            },
+        <select
+          className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 outline-none focus:border-black"
+          {...register("package", {
+            required: "Silakan pilih salah satu paket belajar.",
           })}
-        />
+        >
+          <option value="">-- Pilih Paket --</option>
+          <option value="frontend">
+            Frontend Developer (Rp 500.000)
+          </option>
+          <option value="backend">
+            Backend Developer (Rp 500.000)
+          </option>
+          <option value="fullstack">
+            Fullstack Developer (Rp 900.000)
+          </option>
+        </select>
 
-        {errors.fullName && (
+        {errors.package && (
           <p className="mt-1 text-sm text-red-500">
-            {errors.fullName.message}
+            {errors.package.message}
           </p>
         )}
       </div>
 
       <div>
-        <label className="mb-2 block font-medium">
-          Email Aktif
+        <label className="mb-3 block font-medium">
+          Pilih Sesi Belajar
         </label>
 
-        <input
-          type="email"
-          placeholder="contoh@email.com"
-          className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-black"
-          {...register("email", {
-            required: "Email wajib diisi.",
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "Format email tidak valid.",
-            },
-          })}
-        />
+        <div className="space-y-3">
+          <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-300 p-4">
+            <input
+              type="radio"
+              value="pagi"
+              className="h-4 w-4 accent-black"
+              {...register("session", {
+                required: "Pilih salah satu sesi belajar.",
+              })}
+            />
 
-        {errors.email && (
+            Sesi Pagi (09.00 - 12.00 WIB)
+          </label>
+
+          <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-300 p-4">
+            <input
+              type="radio"
+              value="sore"
+              className="h-4 w-4 accent-black"
+              {...register("session", {
+                required: "Pilih salah satu sesi belajar.",
+              })}
+            />
+
+            Sesi Sore (16.00 - 19.00 WIB)
+          </label>
+        </div>
+
+        {errors.session && (
           <p className="mt-1 text-sm text-red-500">
-            {errors.email.message}
-          </p>
-        )}
-      </div>
-
-      <div>
-        <label className="mb-2 block font-medium">
-          Nomor WhatsApp
-        </label>
-
-        <input
-          type="tel"
-          inputMode="numeric"
-          placeholder="081234567890"
-          className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-black"
-          {...register("phone", {
-            required: "Nomor WhatsApp wajib diisi.",
-            pattern: {
-              value: /^[0-9]{10,13}$/,
-              message:
-                "Nomor WhatsApp harus berupa angka dan 10-13 digit.",
-            },
-          })}
-        />
-
-        {errors.phone && (
-          <p className="mt-1 text-sm text-red-500">
-            {errors.phone.message}
+            {errors.session.message}
           </p>
         )}
       </div>
@@ -81,4 +74,4 @@ function StepOne({ register, errors }) {
   );
 }
 
-export default StepOne;
+export default StepTwo;
