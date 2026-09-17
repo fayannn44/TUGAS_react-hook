@@ -1,52 +1,75 @@
-/* eslint-disable no-unused-vars */
-function StepOne() {
+function StepOne({ register, errors }) {
   return (
-    <div className='space-y-4'>
+    <div className="space-y-5">
       <div>
-        <h2 className='text-base font-semibold text-gray-800'>
-          Langkah 1: Akun & Kredensial
-        </h2>
-        <p className='text-xs text-gray-500'>
-          Masukkan username dan email Anda.
-        </p>
-      </div>
-
-      <div>
-        <div className='flex items-center justify-between mb-1'>
-          <label
-            htmlFor='username'
-            className='block text-xs font-medium text-gray-700'>
-            Username <span className='text-red-500'>*</span>
-          </label>
-        </div>
-        <input
-          id='username'
-          type='text'
-          placeholder='Masukkan username...'
-          className={`w-full px-3 py-2 border rounded-lg text-sm transition focus:outline-none focus:ring-2`}
-        />
-      </div>
-
-      <div>
-        <label
-          htmlFor='email'
-          className='block text-xs font-medium text-gray-700 mb-1'>
-          Alamat Email <span className='text-red-500'>*</span>
+        <label className="mb-2 block font-medium">
+          Nama Lengkap
         </label>
         <input
-          id='email'
-          type='email'
-          placeholder='contoh: user@mail.com'
-          className={`w-full px-3 py-2 border rounded-lg text-sm transition focus:outline-none focus:ring-2`}
+          type="text"
+          placeholder="Masukkan nama lengkap"
+          className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-black"
+          {...register("fullName", {
+            required: "Nama lengkap wajib diisi.",
+            minLength: {
+              value: 3,
+              message: "Nama lengkap minimal 3 karakter.",
+            },
+          })}
         />
+        {errors.fullName && (
+          <p className="mt-1 text-sm text-red-500">
+            {errors.fullName.message}
+          </p>
+        )}
       </div>
 
-      <div className='pt-4 flex justify-end'>
-        <button
-          type='button'
-          className='px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs md:text-sm font-medium rounded-lg transition flex items-center gap-2 cursor-pointer shadow-xs'>
-          <span>Lanjut ke Step 2</span>
-        </button>
+      <div>
+        <label className="mb-2 block font-medium">
+          Email Aktif
+        </label>
+        <input
+          type="email"
+          placeholder="contoh@email.com"
+          className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-black"
+          {...register("email", {
+            required: "Email wajib diisi.",
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Format email tidak valid.",
+            },
+          })}
+        />
+        {errors.email && (
+          <p className="mt-1 text-sm text-red-500">
+            {errors.email.message}
+          </p>
+        )}
+      </div>
+
+      <div>
+        <label className="mb-2 block font-medium">
+          Nomor WhatsApp
+        </label>
+        <input
+          type="tel"
+          inputMode="numeric"
+          placeholder="081234567890"
+          className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-black"
+          {...register("phone", {
+            required: "Nomor WhatsApp wajib diisi.",
+            pattern: {
+              value: /^[0-9]{10,13}$/,
+              message:
+                "Nomor WhatsApp harus berupa angka dan bernilai 10-13 digit.",
+            },
+          })}
+        />
+        {errors.phone && (
+          <p className="mt-1 text-sm text-red-500">
+            {errors.phone.message}
+          </p>
+        )}
       </div>
     </div>
   );
