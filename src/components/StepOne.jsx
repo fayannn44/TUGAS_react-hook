@@ -5,6 +5,7 @@ function StepOne({ register, errors }) {
         <label className="mb-2 block font-medium">
           Nama Lengkap
         </label>
+
         <input
           type="text"
           placeholder="Masukkan nama lengkap"
@@ -17,6 +18,7 @@ function StepOne({ register, errors }) {
             },
           })}
         />
+
         {errors.fullName && (
           <p className="mt-1 text-sm text-red-500">
             {errors.fullName.message}
@@ -28,6 +30,7 @@ function StepOne({ register, errors }) {
         <label className="mb-2 block font-medium">
           Email Aktif
         </label>
+
         <input
           type="email"
           placeholder="contoh@email.com"
@@ -40,6 +43,7 @@ function StepOne({ register, errors }) {
             },
           })}
         />
+
         {errors.email && (
           <p className="mt-1 text-sm text-red-500">
             {errors.email.message}
@@ -51,6 +55,7 @@ function StepOne({ register, errors }) {
         <label className="mb-2 block font-medium">
           Nomor WhatsApp
         </label>
+
         <input
           type="tel"
           inputMode="numeric"
@@ -61,10 +66,11 @@ function StepOne({ register, errors }) {
             pattern: {
               value: /^[0-9]{10,13}$/,
               message:
-                "Nomor WhatsApp harus berupa angka dan bernilai 10-13 digit.",
+                "Nomor WhatsApp harus berupa angka dan 10-13 digit.",
             },
           })}
         />
+
         {errors.phone && (
           <p className="mt-1 text-sm text-red-500">
             {errors.phone.message}
