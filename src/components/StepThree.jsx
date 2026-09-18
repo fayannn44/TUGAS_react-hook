@@ -1,5 +1,5 @@
-function StepThree({ register, errors, watch }) {
-  const data = watch();
+function StepThree({ register, errors, getValues }) {
+  const data = getValues();
 
   const packages = {
     frontend: "Frontend Developer",
@@ -20,20 +20,40 @@ function StepThree({ register, errors, watch }) {
 
   return (
     <div className="space-y-5">
-      <h2 className="text-xl font-bold">
-        Ringkasan Data
-      </h2>
+      <div className="rounded-xl bg-gray-50 p-5">
+        <h3 className="mb-4 text-lg font-bold">
+          Ringkasan Data
+        </h3>
 
-      <div className="space-y-2 rounded-lg bg-gray-50 p-4">
-        <p>Nama Lengkap: {data.fullName}</p>
-        <p>Email: {data.email}</p>
-        <p>Nomor WhatsApp: {data.phone}</p>
-        <p>Paket Belajar: {packages[data.package]}</p>
-        <p>Harga: {prices[data.package]}</p>
-        <p>Sesi Belajar: {sessions[data.session]}</p>
+        <div className="space-y-3 text-sm">
+          <p>
+            <span className="text-gray-500">Nama Lengkap:</span>{" "}
+            {data.fullName}
+          </p>
+          <p>
+            <span className="text-gray-500">Email:</span>{" "}
+            {data.email}
+          </p>
+          <p>
+            <span className="text-gray-500">Nomor WhatsApp:</span>{" "}
+            {data.phone}
+          </p>
+          <p>
+            <span className="text-gray-500">Paket Belajar:</span>{" "}
+            {packages[data.package]}
+          </p>
+          <p>
+            <span className="text-gray-500">Harga:</span>{" "}
+            {prices[data.package]}
+          </p>
+          <p>
+            <span className="text-gray-500">Sesi Belajar:</span>{" "}
+            {sessions[data.session]}
+          </p>
+        </div>
       </div>
 
-      <label className="flex items-start gap-2">
+      <label className="flex cursor-pointer items-start gap-3">
         <input
           type="checkbox"
           className="mt-1 h-4 w-4 accent-black"
@@ -42,8 +62,7 @@ function StepThree({ register, errors, watch }) {
               "Anda harus menyetujui syarat dan ketentuan yang berlaku.",
           })}
         />
-
-        <span>
+        <span className="text-sm text-gray-600">
           Saya menyetujui syarat dan ketentuan yang berlaku.
         </span>
       </label>

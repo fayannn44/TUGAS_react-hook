@@ -1,153 +1,73 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-
-import StepOne from "../components/StepOne";
-import StepTwo from "../components/StepTwo";
-import StepThree from "../components/StepThree";
-
-function RegisterForm() {
-  const [step, setStep] = useState(1);
-
-  const {
-    register,
-    handleSubmit,
-    trigger,
-    watch,
-    reset,
-    formState: { errors },
-  } = useForm({
-    mode: "onTouched",
-    defaultValues: {
-      fullName: "",
-      email: "",
-      phone: "",
-      package: "",
-      session: "",
-      isAgreed: false,
-    },
-  });
-
-  const onSubmit = (data) => {
-    console.log("Data pendaftaran:", data);
-    alert("Pendaftaran berhasil!");
-    reset();
-    setStep(1);
-  };
-
-  const nextStep = async () => {
-    const fields =
-      step === 1
-        ? ["fullName", "email", "phone"]
-        : ["package", "session"];
-
-    const isValid = await trigger(fields);
-
-    if (isValid) {
-      setStep((prev) => prev + 1);
-    }
-  };
-
-  const prevStep = () => {
-    setStep((prev) => prev - 1);
-  };
-
+function StepTwo({ register, errors }) {
   return (
-    <section className="min-h-screen bg-gray-100 px-4 py-10">
-      <div className="mx-auto w-full max-w-xl rounded-2xl bg-white p-6 shadow-md md:p-8">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">
-            Form Pendaftaran
-          </h1>
-
-          <p className="mt-2 text-sm text-gray-500">
-            Lengkapi data pendaftaran kamu.
+    <div className="space-y-6">
+      <div>
+        <label className="mb-2 block font-medium">
+          Pilih Paket Belajar
+        </label>
+        <select
+          className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 outline-none focus:border-black"
+          {...register("package", {
+            required: "Silakan pilih salah satu paket belajar.",
+          })}
+        >
+          <option value="">-- Pilih Paket --</option>
+          <option value="frontend">
+            Frontend Developer (Rp 500.000)
+          </option>
+          <option value="backend">
+            Backend Developer (Rp 500.000)
+          </option>
+          <option value="fullstack">
+            Fullstack Developer (Rp 900.000)
+          </option>
+        </select>
+        {errors.package && (
+          <p className="mt-1 text-sm text-red-500">
+            {errors.package.message}
           </p>
-        </div>
-
-        <div className="mb-8 flex items-center justify-between">
-          {[1, 2, 3].map((number) => (
-            <div
-              key={number}
-              className="flex items-center gap-2"
-            >
-              <div
-                className={`flex h-9 w-9 items-center justify-center rounded-full font-semibold ${
-                  step >= number
-                    ? "bg-black text-white"
-                    : "bg-gray-200 text-gray-500"
-                }`}
-              >
-                {number}
-              </div>
-
-              <span className="hidden text-sm text-gray-600 sm:block">
-                {number === 1
-                  ? "Data Diri"
-                  : number === 2
-                  ? "Paket"
-                  : "Konfirmasi"}
-              </span>
-            </div>
-          ))}
-        </div>
-
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {step === 1 && (
-            <StepOne
-              register={register}
-              errors={errors}
-            />
-          )}
-
-          {step === 2 && (
-            <StepTwo
-              register={register}
-              errors={errors}
-            />
-          )}
-
-          {step === 3 && (
-            <StepThree
-              register={register}
-              errors={errors}
-              watch={watch}
-            />
-          )}
-
-          <div className="mt-8 flex justify-between gap-3">
-            {step > 1 ? (
-              <button
-                type="button"
-                onClick={prevStep}
-                className="rounded-lg border border-gray-300 px-5 py-3 font-medium text-gray-700 transition hover:bg-gray-100"
-              >
-                Kembali
-              </button>
-            ) : (
-              <div />
-            )}
-
-            {step < 3 ? (
-              <button
-                type="button"
-                onClick={nextStep}
-                className="rounded-lg bg-black px-6 py-3 font-medium text-white transition hover:bg-gray-800"
-              >
-                Lanjut
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="rounded-lg bg-black px-6 py-3 font-medium text-white transition hover:bg-gray-800"
-              >
-                Daftar Sekarang
-              </button>
-            )}
-          </div>
-        </form>
+        )}
       </div>
-    </section>
+
+      <div>
+        <label className="mb-3 block font-medium">
+          Pilih Sesi Belajar
+        </label>
+
+        <div className="space-y-3">
+          <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-300 p-4">
+            <input
+              type="radio"
+              value="pagi"
+              className="h-4 w-4 accent-black"
+              {...register("session", {
+                required: "Pilih salah satu sesi belajar.",
+              })}
+            />
+            Sesi Pagi (09.00 - 12.00 WIB)
+          </label>
+
+          <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-300 p-4">
+            <input
+              type="radio"
+              value="sore"
+              className="h-4 w-4 accent-black"
+              {...register("session", {
+                required: "Pilih salah satu sesi belajar.",
+              })}
+            />
+            Sesi Sore (16.00 - 19.00 WIB)
+          </label>
+        </div>
+
+        {errors.session && (
+          <p className="mt-1 text-sm text-red-500">
+            {errors.session.message}
+          </p>
+        )}
+      </div>
+    </div>
   );
 }
 
-export default RegisterForm;
+export default StepTwo;
